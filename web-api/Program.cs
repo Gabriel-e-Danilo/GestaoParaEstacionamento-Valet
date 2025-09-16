@@ -1,30 +1,49 @@
 
+using GestaoParaEstacionamento.WebApi.Indentity;
+using GestaoParaEstacionamento.WebApi.Orm;
+using GestaoParaEstacionamento.WebApi.Swagger;
+using System.Text.Json.Serialization;
+
 namespace GestaoParaEstacionamento.WebApi;
 
 public class Program
 {
     public static void Main(string[] args) {
+
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Services
+            .AddCamadaAplicacao(builder.Logging, builder.Configuration)
+            .AddCamadaInfraestruturaOrm(builder.Configuration);
 
-        builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddAutoMapperProfiles(builder.Configuration);
+
+        builder.Services.AddIdentityProviderConfig(builder.Configuration);
+
+        builder.Services
+            .AddControllers()
+            .AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+        // Swagger/OpenAPI https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddSwaggerConfig();
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment()) {
+        if (app.Environment.IsDevelopment())
+        {
+            app.ApplyMigrations();
+
             app.UseSwagger();
             app.UseSwaggerUI();
         }
 
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+        app.UseAuthentication();
 
+        app.UseAuthorization();
 
         app.MapControllers();
 
