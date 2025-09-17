@@ -25,7 +25,7 @@ namespace GestaoParaEstacionamento.WebApi.Indentity
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 6;
             })
-            .AddEntityFrameworkStores<AppDbContext>()
+            //.AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
             services.AddJwtAuthentication(configuration);

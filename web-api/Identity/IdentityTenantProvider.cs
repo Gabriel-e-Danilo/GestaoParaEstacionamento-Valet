@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using GestaoParaEstacionamento.Core.Dominio.ModuloAutenticacao;
+using System.Security.Claims;
 
 namespace GestaoParaEstacionamento.WebApi.Indentity
 {

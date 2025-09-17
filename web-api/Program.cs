@@ -1,4 +1,5 @@
 
+using GestaoParaEstacionamento.Infraestrutura.Orm;
 using GestaoParaEstacionamento.WebApi.Indentity;
 using GestaoParaEstacionamento.WebApi.Orm;
 using GestaoParaEstacionamento.WebApi.Swagger;
@@ -17,7 +18,7 @@ public class Program
             .AddCamadaAplicacao(builder.Logging, builder.Configuration)
             .AddCamadaInfraestruturaOrm(builder.Configuration);
 
-        builder.Services.AddAutoMapperProfiles(builder.Configuration);
+        //builder.Services.AddAutoMapperProfiles(builder.Configuration);
 
         builder.Services.AddIdentityProviderConfig(builder.Configuration);
 
