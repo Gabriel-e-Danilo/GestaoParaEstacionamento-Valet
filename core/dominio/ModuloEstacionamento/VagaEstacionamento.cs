@@ -4,13 +4,13 @@ namespace GestaoParaEstacionamento.Core.Dominio.ModuloEstacionamento;
 
 public class VagaEstacionamento : EntidadeBase<VagaEstacionamento>
 {
-    public string Identificador { get; set; } = null!; // ex: A-01
+    public string Identificador { get; set; } = string.Empty; // ex: A-01
     public string Zona { get; set; } = "Geral";        // ex: A, VIP, Coberta
 
-    public StatusVaga Status { get; private set; } = StatusVaga.Livre;
+    public StatusVaga Status { get; set; } = StatusVaga.Livre;
 
-    public long? TicketAtual { get; private set; }
-    public string? PlacaAtual { get; private set; }
+    public int? TicketAtual { get; set; }
+    public string? PlacaAtual { get; set; }
 
     private readonly List<LocacaoVaga> _locacoes = new();
     public IReadOnlyCollection<LocacaoVaga> Locacoes => _locacoes;
@@ -30,7 +30,7 @@ public class VagaEstacionamento : EntidadeBase<VagaEstacionamento>
     }
 
 
-    public LocacaoVaga Estacionar(long ticket, string placa, DateTime? momento = null) {
+    public LocacaoVaga Estacionar(int ticket, string placa, DateTime? momento = null) {
 
         if (Status == StatusVaga.Ocupada) throw new InvalidOperationException("Vaga já está ocupada.");
 

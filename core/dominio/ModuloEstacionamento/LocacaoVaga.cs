@@ -6,7 +6,7 @@ public class LocacaoVaga : EntidadeBase<LocacaoVaga>
 {
     public Guid VagaId { get; set; }
 
-    public long Ticket { get; set; }
+    public int Ticket { get; set; }
     public string Placa { get; set; } = null!;
 
     public DateTime DataHoraEntrada { get; set; } = DateTime.UtcNow;
@@ -16,14 +16,10 @@ public class LocacaoVaga : EntidadeBase<LocacaoVaga>
 
     public LocacaoVaga() { }
 
-    public LocacaoVaga(long ticket, string placa) {
+    public LocacaoVaga(int ticket, string placa) {
         Id = Guid.NewGuid();
         Ticket = ticket;
         Placa = placa;
-    }
-
-    public override void AtualizarRegistro(LocacaoVaga editado) {
-        Placa = editado.Placa;
     }
 
     internal void Encerrar(DateTime? momento = null) {

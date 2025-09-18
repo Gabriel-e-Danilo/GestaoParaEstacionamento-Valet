@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 
 namespace GestaoParaEstacionamento.Core.Aplicacao.Compartilhado;
-public class ErrorResults
+public class ResultadosErro
 {
     public static Error RequisicaoInvalidaErro(string erro) {
         return new Error("Requisição inválida")
