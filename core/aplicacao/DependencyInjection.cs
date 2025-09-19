@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,35 +17,33 @@ public static class DependencyInjection
 
         var assembly = typeof(DependencyInjection).Assembly;
 
-        var licenseKey = configuration["AUTOMAPPER_LICENSE_KEY"];
+        //var licenseKey = configuration["AUTOMAPPER_LICENSE_KEY"];
 
-        if (string.IsNullOrWhiteSpace(licenseKey))
-            throw new Exception("A variável AUTOMAPPER_LICENSE_KEY não foi fornecida.");
+        //if (string.IsNullOrWhiteSpace(licenseKey))
+        //    throw new Exception("A variável AUTOMAPPER_LICENSE_KEY não foi fornecida.");
 
-        services.AddMediatR(config =>
-        {
+        services.AddMediatR(config => {
+            var assembly = typeof(DependencyInjection).Assembly;
             config.RegisterServicesFromAssembly(assembly);
-
-            config.LicenseKey = licenseKey;
         });
 
-        services.AddAutoMapper(config =>
-        {
-            config.LicenseKey = licenseKey;
-        }, assembly);
+        //services.AddAutoMapper(config =>
+        //{
+        //    config.LicenseKey = licenseKey;
+        //}, assembly);
 
-        services.AddValidatorsFromAssembly(assembly);
+        //services.AddValidatorsFromAssembly(assembly);
 
-        var redisConnectionString = configuration["REDIS_CONNECTION_STRING"];
+        //var redisConnectionString = configuration["REDIS_CONNECTION_STRING"];
 
-        if (string.IsNullOrWhiteSpace(redisConnectionString))
-            throw new Exception("A variável REDIS_CONNECTION_STRING não foi fornecida.");
+        //if (string.IsNullOrWhiteSpace(redisConnectionString))
+        //    throw new Exception("A variável REDIS_CONNECTION_STRING não foi fornecida.");
 
-        services.AddStackExchangeRedisCache(opt =>
-        {
-            opt.Configuration = redisConnectionString;
-            opt.InstanceName = "gestaoestacionamento";
-        });
+        //services.AddStackExchangeRedisCache(opt =>
+        //{
+        //    opt.Configuration = redisConnectionString;
+        //    opt.InstanceName = "gestaoestacionamento";
+        //});
 
         return services;
     }

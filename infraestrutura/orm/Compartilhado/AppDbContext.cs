@@ -1,10 +1,11 @@
 ﻿using GestaoParaEstacionamento.Core.Dominio.Compartilhado;
+using GestaoParaEstacionamento.Core.Dominio.ModuloVeiculo;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestaoParaEstacionamento.Infraestrutura.Orm.Compartilhado;
+namespace GestaoParaEstacionamento.Infraestrutura.ORM.Compartilhado;
 public class AppDbContext(DbContextOptions options) : DbContext(options), IUnitOfWork
 {
-    // public DbSet<Tralala> Tralala { get; set; }
+    public DbSet<Veiculo> Veiculos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         var assembly = typeof(AppDbContext).Assembly;

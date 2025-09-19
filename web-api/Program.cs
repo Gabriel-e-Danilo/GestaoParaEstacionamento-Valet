@@ -1,8 +1,6 @@
 
-using GestaoParaEstacionamento.Infraestrutura.Orm;
-using GestaoParaEstacionamento.WebApi.Indentity;
+using GestaoParaEstacionamento.Infraestrutura.ORM;
 using GestaoParaEstacionamento.WebApi.Orm;
-using GestaoParaEstacionamento.WebApi.Swagger;
 using System.Text.Json.Serialization;
 
 namespace GestaoParaEstacionamento.WebApi;
@@ -10,7 +8,6 @@ namespace GestaoParaEstacionamento.WebApi;
 public class Program
 {
     public static void Main(string[] args) {
-
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -20,15 +17,17 @@ public class Program
 
         //builder.Services.AddAutoMapperProfiles(builder.Configuration);
 
-        builder.Services.AddIdentityProviderConfig(builder.Configuration);
+        //builder.Services.AddIdentityProviderConfig(builder.Configuration);
 
         builder.Services
-            .AddControllers()
-            .AddJsonOptions(options =>
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+            .AddControllers();
+
+            //.AddJsonOptions(options =>
+            //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         // Swagger/OpenAPI https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddSwaggerConfig();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
 
@@ -42,7 +41,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();
+        //app.UseAuthentication();
 
         app.UseAuthorization();
 

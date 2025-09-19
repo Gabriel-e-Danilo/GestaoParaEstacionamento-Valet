@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace GestaoParaEstacionamento.Infraestrutura.Orm.Compartilhado;
+namespace GestaoParaEstacionamento.Infraestrutura.ORM.Compartilhado;
 public static class AppDbContextFactory
 {
     public static AppDbContext CriarDbContext(string connectionString) {

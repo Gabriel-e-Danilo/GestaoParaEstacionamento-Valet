@@ -1,7 +1,7 @@
 ﻿using GestaoParaEstacionamento.Core.Dominio.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestaoParaEstacionamento.Infraestrutura.Orm.Compartilhado;
+namespace GestaoParaEstacionamento.Infraestrutura.ORM.Compartilhado;
 public class RepositorioBaseEmOrm<T> where T : EntidadeBase<T>
 {
     protected readonly DbSet<T> registros;
