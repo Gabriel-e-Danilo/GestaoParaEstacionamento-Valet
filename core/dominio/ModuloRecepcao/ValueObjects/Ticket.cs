@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
-
+﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
 
 public sealed record class Ticket(
     int Numero
 )
 {
-    public override string ToString() => Numero.ToString();
+    public string GerarCodigo => $"T-{Numero:0000}";
+    public override string ToString() => GerarCodigo;
+
     public static Ticket From(int numero) => new(numero);
 }

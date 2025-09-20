@@ -1,5 +1,5 @@
 ﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
-public record class Placa
+public sealed record class Placa
 {
     public string Valor { get; }
     private Placa(string valor) => Valor = valor;

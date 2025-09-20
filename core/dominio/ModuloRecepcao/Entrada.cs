@@ -4,7 +4,7 @@ using GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
 namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao;
 public class Entrada : EntidadeBase<Entrada>
 {
-    public Ticket Ticket { get; set; }
+    public Ticket Ticket { get; set; } = null!;
     public VeiculoInfo Veiculo { get; set; } = null!;
     public string? Observacoes { get; set; }
     public DateTime DataHoraEntrada { get; set; } = DateTime.UtcNow;

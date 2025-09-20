@@ -1,5 +1,5 @@
 ﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
-public record class CpfHospede
+public sealed record class CpfHospede
 {
     public string Numeros { get; }
     private CpfHospede(string numeros) => Numeros = numeros;

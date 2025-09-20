@@ -1,7 +1,7 @@
 ﻿using GestaoParaEstacionamento.Core.Dominio.Compartilhado;
-using GestaoParaEstacionamento.Core.Dominio.ModuloVeiculo;
+using GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao;
 using GestaoParaEstacionamento.Infraestrutura.ORM.Compartilhado;
-using GestaoParaEstacionamento.Infraestrutura.ORM.ModuloVeiculo;
+using GestaoParaEstacionamento.Infraestrutura.ORM.ModuloRecepcao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +12,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddCamadaInfraestruturaOrm(this IServiceCollection services, IConfiguration configuration) {
 
-        services.AddScoped<IRepositorioVeiculo, RepositorioVeiculoEmORM>();
+        services.AddScoped<IRepositorioEntrada, RepositorioEntradaEmORM>();
+        services.AddScoped<ITicketSequenciador, TicketSequenciador>();
 
         services.AddEntityFrameworkConfig(configuration);
 
