@@ -1,8 +1,10 @@
 ﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
 public sealed record class CpfHospede
 {
-    public string Numeros { get; }
+    public string Numeros { get; } = string.Empty;
     private CpfHospede(string numeros) => Numeros = numeros;
+
+    private CpfHospede() { }
 
     public static CpfHospede From(string entrada) {
         var norm = (entrada ?? string.Empty)

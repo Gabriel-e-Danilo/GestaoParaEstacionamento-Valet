@@ -20,13 +20,14 @@ public class MapeadorEntrada : IEntityTypeConfiguration<Entrada>
         builder.OwnsOne(e => e.Ticket, tk => {
 
             tk.Property(t => t.Numero)
-                .HasColumnName("Ticket")
-                .IsRequired();
-        });
+                .HasColumnName("Ticket");
 
-        builder.HasIndex(e => e.Ticket.Numero)
-            .HasDatabaseName("IX_Entrada_Ticket")
-            .IsUnique();
+            tk.Property(t => t.Numero)
+                .ValueGeneratedOnAdd();
+
+            tk.Property(t => t.Numero)
+                .HasDefaultValueSql("nextval('public.ticket_seq')");
+        });
 
         builder.OwnsOne(e => e.Veiculo, v => {
 
@@ -37,6 +38,7 @@ public class MapeadorEntrada : IEntityTypeConfiguration<Entrada>
                     .HasMaxLength(10)
                     .IsRequired();
 
+                p.HasIndex(pp => pp.Valor).IsUnique();
             });
 
             v.Property(vi => vi.Modelo)

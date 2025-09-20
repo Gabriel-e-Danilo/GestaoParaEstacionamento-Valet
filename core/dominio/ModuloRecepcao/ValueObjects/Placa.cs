@@ -1,8 +1,10 @@
 ﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
 public sealed record class Placa
 {
-    public string Valor { get; }
+    public string Valor { get; } = string.Empty;
     private Placa(string valor) => Valor = valor;
+
+    private Placa() { }
 
     public static Placa From(string entrada) {
         var norm = (entrada ?? string.Empty)

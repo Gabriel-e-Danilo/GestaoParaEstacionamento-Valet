@@ -1,11 +1,16 @@
 ﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
 
-public sealed record class Ticket(
-    int Numero
-)
+public sealed record class Ticket
 {
-    public string GerarCodigo => $"T-{Numero:0000}";
-    public override string ToString() => GerarCodigo;
+    public int Numero { get; private init; }
+
+    private Ticket() { }
+
+    private Ticket(int numero) => Numero = numero;
 
     public static Ticket From(int numero) => new(numero);
+
+
+    public string GerarCodigo => $"T-{Numero:D4}";
+    public override string ToString() => GerarCodigo;
 }

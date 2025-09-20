@@ -1,6 +1,7 @@
 ﻿using GestaoParaEstacionamento.Core.Dominio.Compartilhado;
 using GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GestaoParaEstacionamento.Infraestrutura.ORM.Compartilhado;
 public class AppDbContext(DbContextOptions options) : DbContext(options), IUnitOfWork
