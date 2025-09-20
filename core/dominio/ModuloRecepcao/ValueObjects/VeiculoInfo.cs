@@ -1,5 +1,9 @@
-﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
-public record VeiculoInfo(
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
+
+[Owned]
+public sealed record class VeiculoInfo(
     Placa Placa,
     string Modelo,
     string Cor,

@@ -1,5 +1,9 @@
-﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
-public readonly record struct Ticket(
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
+
+
+public sealed record class Ticket(
     int Numero
 )
 {

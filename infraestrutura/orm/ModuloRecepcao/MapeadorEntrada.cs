@@ -14,10 +14,9 @@ public class MapeadorEntrada : IEntityTypeConfiguration<Entrada>
             .IsRequired();
 
         // 1 coluna
-        builder.OwnsOne(e => e.Ticket, ticket => {
-            ticket.Property(t => t.Numero)
-                .HasColumnName("Ticket")
-                .HasColumnType("integer")
+        builder.OwnsOne(e => e.Ticket, tk => {
+            tk.Property(t => t.Numero)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
         });
 

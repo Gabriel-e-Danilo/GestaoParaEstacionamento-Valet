@@ -1,5 +1,5 @@
 ﻿namespace GestaoParaEstacionamento.Core.Dominio.ModuloRecepcao.ValueObjects;
-public readonly record struct Placa
+public record class Placa
 {
     public string Valor { get; }
     private Placa(string valor) => Valor = valor;
