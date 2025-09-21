@@ -100,7 +100,7 @@ public class EntradaController(IMediator mediator, ISender sender) : ControllerB
 
         var result = await sender.Send(new SelecionarEntradaPorTicketQuery(numero));
 
-        if (result.IsSuccess) return NotFound(new { erros = result.Errors.Select(e => e.Message) });
+        if (result.IsFailed) return NotFound(new { erros = result.Errors.Select(e => e.Message) });
 
         return Ok(result.Value);
     }

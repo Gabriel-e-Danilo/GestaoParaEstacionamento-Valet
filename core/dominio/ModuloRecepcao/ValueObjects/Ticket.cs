@@ -2,13 +2,13 @@
 
 public sealed record class Ticket
 {
-    public int Numero { get; private init; }
+    public int Numero { get; init; }
 
     private Ticket() { }
 
     private Ticket(int numero) => Numero = numero;
 
-    public static Ticket From(int numero) => new(numero);
+    public static Ticket Criar(int numero) => new(numero);
 
 
     public string GerarCodigo => $"T-{Numero:D4}";
