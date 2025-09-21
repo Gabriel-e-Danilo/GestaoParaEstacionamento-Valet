@@ -90,4 +90,26 @@ public class EntradaController(IMediator mediator, ISender sender) : ControllerB
 
         return Ok(result.Value);
     }
+
+
+    [HttpGet("entradas/ticket/{input}")]
+    public async Task<IActionResult> GetByTicket(string input, ISender sender) {
+
+        if (!TryParseTicket(input, out var numero))
+            return BadRequest(new { erro = "Formato de ticket inválido. Use 123 ou T-0123." });
+
+        var result = await sender.Send(new SelecionarEntradaPorTicketQuery(numero));
+
+        if (result.IsSuccess) return NotFound(new { erros = result.Errors.Select(e => e.Message) });
+
+        return Ok(result.Value);
+    }
+
+    private static bool TryParseTicket(string input, out int numero) {
+        input = input.Trim();
+        if (input.StartsWith("T-", StringComparison.OrdinalIgnoreCase))
+            input = input[2..];
+
+        return int.TryParse(input, out numero) && numero > 0;
+    }
 }

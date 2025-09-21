@@ -5,11 +5,12 @@ using GestaoParaEstacionamento.Infraestrutura.ORM.ModuloRecepcao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace GestaoParaEstacionamento.Infraestrutura.ORM;
 
-public static class DependencyInjection
-{
+public static class DependencyInjection {
     public static IServiceCollection AddCamadaInfraestruturaOrm(this IServiceCollection services, IConfiguration configuration) {
 
         services.AddScoped<IRepositorioEntrada, RepositorioEntradaEmORM>();
@@ -26,7 +27,11 @@ public static class DependencyInjection
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new Exception("A variável SQL_CONNECTION_STRING não foi fornecida.");
 
-        services.AddDbContext<IUnitOfWork, AppDbContext>(options =>
-            options.UseNpgsql(connectionString, (opt) => opt.EnableRetryOnFailure(3)));
+        services.AddDbContext<IUnitOfWork, AppDbContext>(options => {
+
+            options.UseNpgsql(connectionString, (opt) => opt.EnableRetryOnFailure(3));
+
+            options.LogTo(Console.WriteLine, LogLevel.Information);
+        });
     }
 }
