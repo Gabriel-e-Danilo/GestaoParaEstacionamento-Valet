@@ -40,13 +40,17 @@ public class RepositorioBaseEmOrm<T> where T : EntidadeBase<T>
         return true;
     }
 
-    public virtual async Task<T?> SelecionarRegistroPorIdAsync(Guid idRegistro) {
-
-        return await registros.FirstOrDefaultAsync(x => x.Id.Equals(idRegistro));
-    }
-
     public virtual async Task<List<T>> SelecionarRegistrosAsync() {
 
         return await registros.ToListAsync();
+    }
+
+    public virtual async Task<List<T>> SelecionarRegistrosAsync(int quantidade) {
+        return await registros.Take(quantidade).ToListAsync();
+    }
+
+    public virtual async Task<T?> SelecionarRegistroPorIdAsync(Guid idRegistro) {
+
+        return await registros.FirstOrDefaultAsync(x => x.Id.Equals(idRegistro));
     }
 }

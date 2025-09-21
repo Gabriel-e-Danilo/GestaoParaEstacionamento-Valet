@@ -8,14 +8,14 @@ namespace GestaoParaEstacionamento.WebApi.Controllers;
 
 [Route("entradas")]
 [ApiController]
-public class EntradaController(IMediator mediator) : ControllerBase
+public class EntradaController(IMediator mediator, ISender sender) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<CadastrarEntradaResponse>> Cadastrar(CadastrarEntradaRequest request) {
         var veiculo = VeiculoInfo.From(
-            request.Placa, 
-            request.Modelo, 
-            request.Cor, 
+            request.Placa,
+            request.Modelo,
+            request.Cor,
             request.CpfHospede
         );
 
@@ -33,5 +33,61 @@ public class EntradaController(IMediator mediator) : ControllerBase
         );
 
         return Created(string.Empty, response);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<SelecionarEntradasResult>> SelecionarRegistros(
+        [FromQuery] SelecionarEntradasRequest request
+    ) {
+        var query = new SelecionarEntradasQuery(request?.Quantidade);
+
+        var result = await mediator.Send(query);
+
+        if (result.IsFailed) return BadRequest();
+
+        var response = new SelecionarEntradasResponse(
+            result.Value.Entradas.Count,
+            result.Value.Entradas
+        );
+
+        return Ok(response);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<SelecionarEntradaPorIdResponse>> SelecionarRegistroPorId(
+        Guid id
+    ) {
+        var query = new SelecionarEntradaPorIdQuery(id);
+
+        var result = await mediator.Send(query);
+
+        if (result.IsFailed) return NotFound(id);
+        
+        var response = new SelecionarEntradaPorIdResponse(
+            result.Value.Id,
+            result.Value.Ticket,
+            result.Value.DataHoraEntrada,
+            result.Value.Placa,
+            result.Value.Modelo,
+            result.Value.Cor,
+            result.Value.CpfHospede,
+            result.Value.Observacoes
+        );
+
+        return Ok(response);
+    }
+
+    [HttpPatch("{id:guid}/observacoes")]
+    public async Task<ActionResult<AtualizarObservacaoResult>> AtualizarObservacoes(
+        Guid id, 
+        AtualizarObservacaoRequest body
+    ) {
+        var cmd = new AtualizarObservacaoCommand(id, body.Observacao ?? string.Empty);
+
+        var result = await sender.Send(cmd);
+
+        if (result.IsFailed) return BadRequest();
+
+        return Ok(result.Value);
     }
 }
