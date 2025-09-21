@@ -27,12 +27,12 @@ public static class DependencyInjection
             config.RegisterServicesFromAssembly(assembly);
         });
 
+        services.AddValidatorsFromAssembly(assembly);
+
         //services.AddAutoMapper(config =>
         //{
         //    config.LicenseKey = licenseKey;
         //}, assembly);
-
-        //services.AddValidatorsFromAssembly(assembly);
 
         //var redisConnectionString = configuration["REDIS_CONNECTION_STRING"];
 

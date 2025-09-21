@@ -27,7 +27,7 @@ public class CadastrarEntradaCommandHandler(IRepositorioEntrada repositorioEntra
             await repositorioEntrada.CadastrarAsync(entrada);
             await unitOfWork.CommitAsync();
 
-            var result = new CadastrarEntradaResult(entrada.Id, entrada.Ticket);
+            var result = new CadastrarEntradaResult(entrada.Id);
 
             return Result.Ok(result);
 

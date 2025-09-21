@@ -3,11 +3,13 @@
 namespace GestaoParaEstacionamento.WebApi.Models.Entrada;
 
 public record CadastrarEntradaRequest(
-    VeiculoInfo VeiculoInfo,
+    string Placa,
+    string Modelo,
+    string Cor,
+    string CpfHospede,
     string? Observacoes
 );
 
 public record CadastrarEntradaResponse(
-    Guid Id,
-    Ticket Ticket
+    Guid Id
 );

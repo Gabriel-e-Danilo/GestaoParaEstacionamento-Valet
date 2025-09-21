@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\infraestrutura\orm\GestaoParaEstacionamento.Infraestrutura.ORM.csproj" />
     <ProjectReference Include="..\dominio\GestaoParaEstacionamento.Core.Dominio.csproj" />
   </ItemGroup>
 

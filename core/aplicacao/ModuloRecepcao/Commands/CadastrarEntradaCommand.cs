@@ -8,4 +8,4 @@ public record CadastrarEntradaCommand(
     string? Observacoes
 ) : IRequest<Result<CadastrarEntradaResult>>;
 
-public record CadastrarEntradaResult(Guid Id, Ticket Ticket);
+public record CadastrarEntradaResult(Guid Id);
