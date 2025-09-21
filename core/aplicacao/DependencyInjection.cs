@@ -71,6 +71,9 @@ public static class DependencyInjection
             .CreateLogger();
 
         logging.ClearProviders();
+        logging.AddConsole();
+        logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Information);
+        logging.AddFilter("Microsoft.EntityFrameworkCore.Query", LogLevel.Information);
 
         services.AddSerilog();
     }

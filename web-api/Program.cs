@@ -1,4 +1,3 @@
-
 using GestaoParaEstacionamento.Infraestrutura.ORM;
 using GestaoParaEstacionamento.WebApi.Orm;
 using System.Text.Json.Serialization;
@@ -10,6 +9,11 @@ public class Program
     public static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
 
+        //Logging
+
+
+
+
         // Add services to the container.
         builder.Services
             .AddCamadaAplicacao(builder.Logging, builder.Configuration)
@@ -20,10 +24,13 @@ public class Program
         //builder.Services.AddIdentityProviderConfig(builder.Configuration);
 
         builder.Services
-            .AddControllers();
-
-            //.AddJsonOptions(options =>
-            //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+            .AddControllers()
+            .AddJsonOptions(options => {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());               
+            })
+            .ConfigureApiBehaviorOptions(options => {
+                options.SuppressMapClientErrors = false;
+            });
 
         // Swagger/OpenAPI https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -37,7 +44,11 @@ public class Program
 
             app.UseSwagger();
             app.UseSwaggerUI();
+
+            app.UseDeveloperExceptionPage();
         }
+
+        app.UseStatusCodePages();
 
         app.UseHttpsRedirection();
 
